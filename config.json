@@ -1,0 +1,11 @@
+{
+  "equipo": [
+    {
+      "nombre": "Jaime Dev",
+      "rol": "Creador Oficial",
+      "desc": "Desarrollador principal y dueño de Beta J-Dev Studios."
+    }
+  ],
+  "anuncios": "📢 ¡Estamos en mantenimiento! Nueva versión pronto.",
+  "actualizaciones": "📦 v1.2: Se ha mejorado la interfaz de usuario."
+}
