@@ -3,88 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beta J-Dev Studios - Legal & Soporte</title>
+    <title>Beta J-Dev Studios</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background: #00050a;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            overflow-x: hidden;
+        body { margin: 0; padding: 0; background: #00050a; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        
+        /* Estrellas Brillantes */
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.8; animation: move linear infinite, twinkle 1.5s infinite ease-in-out; }
+        @keyframes move { from { transform: translateY(-10vh); } to { transform: translateY(110vh); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px 2px white; } }
+
+        .container { max-width: 700px; margin: 5vh auto; height: 85vh; display: flex; flex-direction: column; }
+        
+        /* Cuadro de Contenido Dinámico */
+        .content-box { 
+            flex-grow: 1;
+            padding: 30px; 
+            background: rgba(0, 0, 0, 0.75); 
+            backdrop-filter: blur(15px); 
+            border-radius: 20px; 
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            overflow-y: auto;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
 
-        /* Estrellas mejoradas que brillan */
-        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: move linear infinite, twinkle 2s infinite ease-in-out; }
-        @keyframes move { from { transform: translateY(-10vh); } to { transform: translateY(110vh); } }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; } }
+        h1 { color: #5865F2; text-align: center; margin-top: 0; text-shadow: 0 0 10px rgba(88, 101, 242, 0.5); }
+        h2 { color: #5865F2; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        p, li { color: #dcddde; line-height: 1.6; }
 
-        .container { max-width: 850px; margin: 40px auto; padding: 30px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        /* Botonera */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { padding: 12px; border-radius: 8px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.2s; border: none; font-size: 14px; }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
         
-        h1 { color: #5865F2; text-align: center; font-size: 2.5em; margin-bottom: 10px; }
-        h2 { border-left: 5px solid #5865F2; padding-left: 15px; margin-top: 40px; font-size: 1.5em; }
-        p, li { color: #ccc; line-height: 1.6; }
+        .azul { background: #007bff; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); }
+        .verde { background: #2ecc71; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); grid-column: span 2; }
+        .rojo { background: #e74c3c; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
 
-        /* Contenedor de Botones */
-        .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .btn { border: none; padding: 15px; border-radius: 10px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        
-        /* Colores de Botones */
-        .btn-blue { background-color: #007bff; }  /* Azul */
-        .btn-green { background-color: #2ecc71; } /* Verde */
-        .btn-red { background-color: #e74c3c; }   /* Rojo */
-        .btn-full { grid-column: span 2; }
-
-        /* Sección Equipo */
-        .team-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px solid #5865F2; }
-        .discord-icon { width: 20px; vertical-align: middle; margin-right: 8px; }
-
-        /* Sección IDs */
-        .id-box { background: #1e1f22; padding: 15px; border-radius: 8px; font-family: monospace; border: 1px solid #444; margin-bottom: 15px; }
-        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px; }
-        .tag-ann { background: #e74c3c; }
-        .tag-upd { background: #3498db; }
+        .team-item { background: rgba(88, 101, 242, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #5865F2; margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="stars" id="star-container"></div>
-
+    
     <div class="container">
-        <h1>Beta J-Dev Studios</h1>
-
-        <h2>⚖️ Legal</h2>
-        <p><b>ToS:</b> No uses el bot para spam o actividades ilegales. <br>
-        <b>Privacidad:</b> Solo guardamos tu ID para funciones de niveles y economía. No vendemos datos.</p>
-
-        <h2>👥 Equipo de Soporte</h2>
-        <div class="team-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-icon"> 
-            <strong>Jaime Dev — Creador del bot</strong>
-            <p style="margin: 5px 0 0 28px; font-size: 0.9em; color: #aaa;">Descripción: Creador Oficial y desarrollador principal de la infraestructura.</p>
+        <div class="content-box" id="main-content">
+            <h1>Beta J-Dev Studios</h1>
+            <h2>⚖️ Términos y Privacidad</h2>
+            <p><b>1. Términos:</b> Al usar el bot, aceptas las normas de Discord. No está permitido el abuso del sistema ni el spam.</p>
+            <p><b>2. Privacidad:</b> Recopilamos tu ID de usuario y servidor para el funcionamiento de comandos y niveles. Los datos son privados y no se comparten.</p>
+            <p><b>3. Eliminación:</b> Puedes solicitar borrar tus datos expulsando al bot o contactando al equipo.</p>
         </div>
 
-        <h2>📢 Últimas Novedades</h2>
-        <div class="id-box">
-            <span class="tag tag-ann">Anuncios (ID: 1449573050663174218)</span><br>
-            Cargando mensajes del canal de anuncios...
-        </div>
-        <div class="id-box">
-            <span class="tag tag-upd">Actualizaciones (ID: 1449578305710719109)</span><br>
-            Cargando registros de cambios recientes...
-        </div>
-
-        <h2>🔗 Enlaces Rápidos</h2>
-        <div class="button-grid">
-            <a href="https://discord.gg/BVTAsgUm8f" class="btn btn-blue" target="_blank">Servidor de Soporte</a>
-            <a href="https://top.gg/bot/1434700657733927054?s=073c749a233d9" class="btn btn-red" target="_blank">TOP GG</a>
-            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn btn-green btn-full" target="_blank">➕ Invitar Bot al Servidor</a>
+        <div class="grid">
+            <button onclick="showTeam()" class="btn azul">Equipo de Soporte</button>
+            <a href="https://discord.gg/BVTAsgUm8f" target="_blank" class="btn azul">Servidor de Soporte</a>
+            <button onclick="showNews()" class="btn rojo">Anuncios / Updates</button>
+            <a href="https://top.gg/bot/1434700657733927054" target="_blank" class="btn rojo">TOP GG</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot+applications.commands" target="_blank" class="btn verde">➕ Invitar Bot</a>
         </div>
     </div>
 
     <script>
-        const container = document.getElementById('star-container');
-        for (let i = 0; i < 120; i++) {
+        const content = document.getElementById('main-content');
+
+        function showTeam() {
+            content.innerHTML = `
+                <h1>👥 Equipo de Soporte</h1>
+                <div class="team-item">
+                    <strong>🔵 Jaime Dev</strong> — Creador Oficial
+                    <p>Desarrollador principal de Beta J-Dev Studios. Encargado de la infraestructura y el código base.</p>
+                </div>
+                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; cursor:pointer; padding:5px 10px; border-radius:5px;">← Volver</button>
+            `;
+        }
+
+        function showNews() {
+            content.innerHTML = `
+                <h1>📢 Novedades</h1>
+                <h2>Anuncios (ID: 1449573050663174218)</h2>
+                <p style="background:#111; padding:10px; border-radius:5px; font-family:monospace;">📢 Esperando nuevos anuncios en el servidor...</p>
+                <h2>Actualizaciones (ID: 1449578305710719109)</h2>
+                <p style="background:#111; padding:10px; border-radius:5px; font-family:monospace;">📦 Beta J-Dev Studios v1.0 - Sistema de Landing Page activo.</p>
+                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; cursor:pointer; padding:5px 10px; border-radius:5px;">← Volver</button>
+            `;
+        }
+
+        // Generador de estrellas
+        const starContainer = document.getElementById('star-container');
+        for (let i = 0; i < 150; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             const size = Math.random() * 4 + 'px';
@@ -92,9 +100,9 @@
             star.style.height = size;
             star.style.left = Math.random() * 100 + 'vw';
             star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDuration = (Math.random() * 8 + 4) + 's';
+            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
             star.style.animationDelay = Math.random() * 5 + 's';
-            container.appendChild(star);
+            starContainer.appendChild(star);
         }
     </script>
 </body>
