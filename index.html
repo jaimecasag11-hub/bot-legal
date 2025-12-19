@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ToS y Privacidad - Mi Bot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #00050a; /* Fondo azul muy oscuro/negro */
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Efecto de Estrellas Animadas */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: move linear infinite;
+        }
+
+        @keyframes move {
+            from { transform: translateY(-100vh); }
+            to { transform: translateY(100vh); }
+        }
+
+        /* Contenedor de Texto */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05); /* Cristal transparente */
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1 { color: #5865F2; text-align: center; } /* Color Blurple de Discord */
+        h2 { border-bottom: 1px solid #5865F2; padding-bottom: 10px; margin-top: 30px; }
+        p, li { line-height: 1.6; color: #dcddde; }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="star-container"></div>
+
+    <div class="container">
+        <h1>Términos y Privacidad</h1>
+        
+        <h2>1. Términos de Servicio</h2>
+        <p>Al usar este Bot, aceptas cumplir con las reglas de Discord. El bot se ofrece "tal cual" para mejorar tu servidor.</p>
+        <ul>
+            <li>No usar el bot para spam.</li>
+            <li>Respetar la privacidad de otros usuarios.</li>
+        </ul>
+
+        <h2>2. Política de Privacidad</h2>
+        <p>Solo guardamos tu ID de Discord y configuraciones del servidor para que el bot funcione. No vendemos tus datos a nadie.</p>
+        <p><b>Eliminación:</b> Puedes pedir borrar tus datos saliendo del servidor o contactando al soporte.</p>
+    </div>
+
+    <script>
+        // Generador de estrellas aleatorias
+        const container = document.getElementById('star-container');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            star.style.animationDelay = (Math.random() * 10) + 's';
+            container.appendChild(star);
+        }
+    </script>
+</body>
+</html>
