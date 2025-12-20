@@ -6,60 +6,32 @@
     <title>Beta J-Dev Studios</title>
     <style>
         body { margin: 0; padding: 0; background: #00050a; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-        
-        /* Estrellas Brillantes */
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.8; animation: move linear infinite, twinkle 1.5s infinite ease-in-out; }
         @keyframes move { from { transform: translateY(-10vh); } to { transform: translateY(110vh); } }
         @keyframes twinkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px 2px white; } }
-
         .container { max-width: 700px; margin: 5vh auto; height: 85vh; display: flex; flex-direction: column; }
-        
-        /* Cuadro de Contenido Dinámico */
-        .content-box { 
-            flex-grow: 1;
-            padding: 30px; 
-            background: rgba(0, 0, 0, 0.75); 
-            backdrop-filter: blur(15px); 
-            border-radius: 20px; 
-            border: 1px solid rgba(88, 101, 242, 0.4);
-            overflow-y: auto;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        h1 { color: #5865F2; text-align: center; margin-top: 0; text-shadow: 0 0 10px rgba(88, 101, 242, 0.5); }
-        h2 { color: #5865F2; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        p, li { color: #dcddde; line-height: 1.6; }
-
-        /* Botonera */
+        .content-box { flex-grow: 1; padding: 30px; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(15px); border-radius: 20px; border: 1px solid rgba(88, 101, 242, 0.4); overflow-y: auto; margin-bottom: 20px; }
+        h1 { color: #5865F2; text-align: center; margin-top: 0; }
+        h2 { color: #5865F2; border-bottom: 1px solid #333; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { padding: 12px; border-radius: 8px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.2s; border: none; font-size: 14px; }
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
-        
-        .azul { background: #007bff; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); }
-        .verde { background: #2ecc71; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); grid-column: span 2; }
-        .rojo { background: #e74c3c; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
-
+        .btn { padding: 12px; border-radius: 8px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; font-size: 14px; }
+        .azul { background: #007bff; } .verde { background: #2ecc71; grid-column: span 2; } .rojo { background: #e74c3c; }
         .team-item { background: rgba(88, 101, 242, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #5865F2; margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="stars" id="star-container"></div>
-    
     <div class="container">
         <div class="content-box" id="main-content">
             <h1>Beta J-Dev Studios</h1>
             <h2>⚖️ Términos y Privacidad</h2>
-            <p><b>1. Términos:</b> Al usar el bot, aceptas las normas de Discord. No está permitido el abuso del sistema ni el spam.</p>
-            <p><b>2. Privacidad:</b> Recopilamos tu ID de usuario y servidor para el funcionamiento de comandos y niveles. Los datos son privados y no se comparten.</p>
-            <p><b>3. Eliminación:</b> Puedes solicitar borrar tus datos expulsando al bot o contactando al equipo.</p>
+            <p>Bienvenido. Usa los botones de abajo para navegar por la información oficial.</p>
         </div>
-
         <div class="grid">
-            <button onclick="showTeam()" class="btn azul">Equipo de Soporte</button>
+            <button onclick="loadTeam()" class="btn azul">Equipo de Soporte</button>
             <a href="https://discord.gg/BVTAsgUm8f" target="_blank" class="btn azul">Servidor de Soporte</a>
-            <button onclick="showNews()" class="btn rojo">Anuncios / Updates</button>
+            <button onclick="loadNews()" class="btn rojo">Anuncios / Updates</button>
             <a href="https://top.gg/bot/1434700657733927054" target="_blank" class="btn rojo">TOP GG</a>
             <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot+applications.commands" target="_blank" class="btn verde">➕ Invitar Bot</a>
         </div>
@@ -67,42 +39,42 @@
 
     <script>
         const content = document.getElementById('main-content');
-
-        function showTeam() {
-            content.innerHTML = `
-                <h1>👥 Equipo de Soporte</h1>
-                <div class="team-item">
-                    <strong>🔵 Jaime Dev</strong> — Creador Oficial
-                    <p>Desarrollador principal de Beta J-Dev Studios. Encargado de la infraestructura y el código base.</p>
-                </div>
-                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; cursor:pointer; padding:5px 10px; border-radius:5px;">← Volver</button>
-            `;
+        
+        // Función para leer el archivo que tú editas en GitHub
+        async function getData() {
+            const response = await fetch('config.json');
+            return await response.json();
         }
 
-        function showNews() {
+        async function loadTeam() {
+            const data = await getData();
+            let html = '<h1>👥 Equipo de Soporte</h1>';
+            data.equipo.forEach(m => {
+                html += `<div class="team-item"><strong>🔵 ${m.nombre}</strong> — ${m.rol}<p>${m.desc}</p></div>`;
+            });
+            html += `<button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; padding:5px;">← Volver</button>`;
+            content.innerHTML = html;
+        }
+
+        async function loadNews() {
+            const data = await getData();
             content.innerHTML = `
                 <h1>📢 Novedades</h1>
-                <h2>Anuncios (ID: 1449573050663174218)</h2>
-                <p style="background:#111; padding:10px; border-radius:5px; font-family:monospace;">📢 Esperando nuevos anuncios en el servidor...</p>
-                <h2>Actualizaciones (ID: 1449578305710719109)</h2>
-                <p style="background:#111; padding:10px; border-radius:5px; font-family:monospace;">📦 Beta J-Dev Studios v1.0 - Sistema de Landing Page activo.</p>
-                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; cursor:pointer; padding:5px 10px; border-radius:5px;">← Volver</button>
-            `;
+                <h2>Anuncios</h2><p style="background:#111; padding:10px;">${data.anuncios}</p>
+                <h2>Actualizaciones</h2><p style="background:#111; padding:10px;">${data.actualizaciones}</p>
+                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; padding:5px;">← Volver</button>`;
         }
 
-        // Generador de estrellas
-        const starContainer = document.getElementById('star-container');
+        // Estrellas
+        const sc = document.getElementById('star-container');
         for (let i = 0; i < 150; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 4 + 'px';
-            star.style.width = size;
-            star.style.height = size;
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            starContainer.appendChild(star);
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.width = s.style.height = Math.random() * 4 + 'px';
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.top = Math.random() * 100 + 'vh';
+            s.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            sc.appendChild(s);
         }
     </script>
 </body>
