@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { margin: 0; padding: 0; background: #00050a; color: white; font-family: sans-serif; overflow: hidden; height: 100vh; }
-        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #090A0F; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: move linear infinite; }
+        .stars-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #090A0F; }
+        .star-bg { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: move linear infinite; }
         @keyframes move { from { transform: translateY(-10px); } to { transform: translateY(100vh); } }
         
         .container { max-width: 450px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; padding: 15px; box-sizing: border-box; }
@@ -18,7 +18,6 @@
         .stats-bar { display: flex; justify-content: space-around; background: rgba(88, 101, 242, 0.1); padding: 8px; border-radius: 10px; margin-bottom: 15px; font-size: 0.8em; }
         .status-dot { height: 8px; width: 8px; background: #2ecc71; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #2ecc71; margin-right: 5px; }
         
-        /* Grilla de 2 columnas */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .btn { padding: 10px; border-radius: 10px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; transition: 0.2s; }
         .btn:active { transform: scale(0.95); }
@@ -30,29 +29,34 @@
         .item-list { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-left: 3px solid #5865F2; margin-bottom: 8px; font-size: 0.85em; }
         .back-btn { background: #5865F2; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 10px; margin-bottom: 10px; }
         
+        /* Estilos Reseñas */
+        .review-card { border-left-color: #00d4ff; }
+        .stars-gold { color: #f1c40f; font-size: 0.9em; margin: 5px 0; }
+        .user-tag { color: #5865F2; font-weight: bold; font-size: 0.8em; }
+
         h2 { color: #5865F2; font-size: 1.1em; margin-top: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
         ul { padding-left: 15px; font-size: 0.85em; color: #ccc; }
-        b { color: #5865F2; }
     </style>
 </head>
 <body>
-    <div class="stars" id="star-container"></div>
+    <div class="stars-bg" id="star-container"></div>
     <div class="container">
         <div class="content-box" id="main-content">
             <h1><i class="fas fa-rocket"></i> Beta J-Dev Studios</h1>
             <div class="stats-bar">
                 <div><span class="status-dot"></span> Online</div>
-                <div><i class="fas fa-server"></i> 150+ Servers</div>
-                <div><i class="fas fa-users"></i> 12k+ Users</div>
+                <div id="srv-txt"><i class="fas fa-server"></i> 150+ Servers</div>
+                <div id="usr-txt"><i class="fas fa-users"></i> 12k+ Users</div>
             </div>
             <div id="dynamic-area"></div>
         </div>
 
         <div class="grid">
+            <button onclick="loadReviews()" class="btn azul"><i class="fas fa-star-half-stroke"></i> Reseñas</button>
             <button onclick="loadFAQ()" class="btn rojo"><i class="fas fa-thumbtack"></i> FAQ Oficial</button>
             <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo</button>
-            <button onclick="loadNews()" class="btn azul"><i class="fas fa-bullhorn"></i> Novedades</button>
             <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-star"></i> TOP GG</a>
+            <button onclick="loadNews()" class="btn azul"><i class="fas fa-bullhorn"></i> Novedades</button>
             <a href="https://discord.gg/BVTAsgUm8f" class="btn rojo" target="_blank"><i class="fab fa-discord"></i> Soporte</a>
             <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot" class="btn verde" target="_blank"><i class="fas fa-plus-circle"></i> Invitar Bot</a>
         </div>
@@ -60,60 +64,72 @@
 
     <script>
         const backBtn = '<button onclick="showHome()" class="back-btn">← Regresar</button>';
+        let configData = null;
+
+        async function init() {
+            try {
+                const r = await fetch('config.json');
+                configData = await r.json();
+                document.getElementById('srv-txt').innerHTML = `<i class="fas fa-server"></i> ${configData.servidores}`;
+                document.getElementById('usr-txt').innerHTML = `<i class="fas fa-users"></i> ${configData.usuarios}`;
+            } catch(e) { console.log("Cargando datos..."); }
+            showHome();
+        }
 
         function showHome() {
             document.getElementById('dynamic-area').innerHTML = `
-                <h2><i class="fas fa-gavel"></i> Términos de Uso</h2>
-                <ul>
-                    <li>1. <b>Uso Legal:</b> Respetar leyes de Discord.</li>
-                    <li>2. <b>No Abuso:</b> Prohibido spam o flood.</li>
-                    <li>3. <b>Modificaciones:</b> Funciones sujetas a cambio.</li>
-                    <li>4. <b>Edad:</b> Mínimo 13 años.</li>
-                    <li>5. <b>Baneos:</b> Reserva de admisión a usuarios tóxicos.</li>
-                </ul>
+                <h2><i class="fas fa-gavel"></i> Términos</h2>
+                <ul><li>1. Uso legal</li><li>2. No spam</li><li>3. +13 años</li><li>4. Aceptación al usar</li></ul>
                 <h2><i class="fas fa-shield-halved"></i> Privacidad</h2>
-                <ul>
-                    <li>1. <b>Datos:</b> Solo guardamos IDs (niveles/economía).</li>
-                    <li>2. <b>Seguridad:</b> Datos cifrados y protegidos.</li>
-                    <li>3. <b>Mensajes:</b> No leemos chats privados.</li>
-                    <li>4. <b>Borrado:</b> Solicita borrar tus datos en soporte.</li>
-                </ul>`;
+                <ul><li>1. Solo IDs</li><li>2. No venta de datos</li><li>3. No lee DMs</li><li>4. Cifrado seguro</li></ul>`;
         }
 
-        function loadTeam() {
-            document.getElementById('dynamic-area').innerHTML = backBtn + `
-                <h2>Equipo de Soporte</h2>
-                <div class="item-list"><b>Jaime Dev</b><br>Creador Oficial & Developer</div>
-                <div class="item-list"><b>Staff Team</b><br>Encargados de Soporte</div>`;
+        function loadReviews() {
+            let h = backBtn + '<h2>⭐ Reseñas de Usuarios</h2>';
+            if(configData && configData.reseñas) {
+                configData.reseñas.forEach(r => {
+                    let s = '<div class="stars-gold">' + '★'.repeat(r.estrellas) + '☆'.repeat(5-r.estrellas) + '</div>';
+                    h += `<div class="item-list review-card">
+                            <strong>${r.titulo}</strong>
+                            ${s}
+                            <p style="margin:5px 0;">${r.desc}</p>
+                            <span class="user-tag">${r.usuario}</span>
+                          </div>`;
+                });
+            }
+            document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadFAQ() {
-            document.getElementById('dynamic-area').innerHTML = backBtn + `
-                <h2>📘 FAQ Oficial</h2>
-                <div class="item-list"><b>¿Qué es J-Dev Bot?</b><br>Bot multifuncional de moderación, seguridad y utilidades.</div>
-                <div class="item-list"><b>¿Es gratuito?</b><br>✅ Sí, todas las funciones actuales son gratis.</div>
-                <div class="item-list"><b>¿Cómo lo configuro?</b><br>Usa los comandos slash (/) para ver las opciones.</div>
-                <div class="item-list"><b>¿Dónde pido ayuda?</b><br>Abre un ticket en nuestro servidor de Soporte.</div>`;
+            let h = backBtn + '<h2>📘 FAQ Oficial</h2>';
+            if(configData) configData.faq.forEach(f => h += `<div class="item-list"><b>${f.q}</b><p>${f.a}</p></div>`);
+            document.getElementById('dynamic-area').innerHTML = h;
+        }
+
+        function loadTeam() {
+            let h = backBtn + '<h2>Equipo</h2>';
+            if(configData) configData.equipo.forEach(e => h += `<div class="item-list"><b>${e.nombre}</b><br>${e.rol}</div>`);
+            document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadNews() {
-            document.getElementById('dynamic-area').innerHTML = backBtn + `
-                <h2>Novedades</h2>
-                <div class="item-list">📢 Trabajando en nuevos sistemas interactivos.</div>
-                <div class="item-list">📦 v1.2: Optimización de respuesta global.</div>`;
+            let h = backBtn + '<h2>Novedades</h2>';
+            if(configData) h += `<div class="item-list">${configData.anuncios}</div><div class="item-list">${configData.actualizaciones}</div>`;
+            document.getElementById('dynamic-area').innerHTML = h;
         }
 
+        // Estrellas de fondo
         const sc = document.getElementById('star-container');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 40; i++) {
             const s = document.createElement('div');
-            s.className = 'star';
+            s.className = 'star-bg';
             s.style.width = s.style.height = '2px';
             s.style.left = Math.random() * 100 + 'vw';
             s.style.top = Math.random() * 100 + 'vh';
-            s.style.animationDuration = (Math.random() * 4 + 2) + 's';
+            s.style.animationDuration = (Math.random() * 3 + 2) + 's';
             sc.appendChild(s);
         }
-        showHome();
+        init();
     </script>
 </body>
 </html>
