@@ -20,6 +20,7 @@
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .btn { padding: 10px; border-radius: 10px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; transition: 0.2s; }
+        .btn:active { transform: scale(0.95); }
         
         .azul { background: #5865f2; }
         .rojo { background: #e74c3c; }
@@ -32,7 +33,8 @@
         .user-tag { color: #5865F2; font-weight: bold; font-size: 0.8em; }
 
         h2 { color: #5865F2; font-size: 1.1em; margin-top: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        ul { padding-left: 15px; font-size: 0.85em; color: #ccc; }
+        input, textarea, select { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; box-sizing: border-box; }
+        ::placeholder { color: #aaa; }
     </style>
 </head>
 <body>
@@ -49,7 +51,7 @@
         </div>
 
         <div class="grid">
-            <button onclick="loadReviews()" class="btn azul"><i class="fas fa-star"></i> Reseñas</button>
+            <button onclick="loadReviews()" class="btn azul"><i class="fas fa-star-half-stroke"></i> Reseñas</button>
             <button onclick="loadFAQ()" class="btn rojo"><i class="fas fa-thumbtack"></i> FAQ Oficial</button>
             <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo</button>
             <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-star"></i> TOP GG</a>
@@ -61,34 +63,15 @@
 
     <script>
         const backBtn = '<button onclick="showHome()" class="back-btn">← Regresar</button>';
-        
-        // DATOS DE RESPALDO (Si el JSON falla, esto salva la página)
-        let configData = {
-            servidores: "150+",
-            usuarios: "12,000+",
-            faq: [
-                {q: "¿Qué es J-Dev Bot?", a: "Un bot multifuncional de moderación y seguridad."},
-                {q: "¿Es gratis?", a: "Sí, todas las funciones actuales son gratuitas."}
-            ],
-            reseñas: [
-                {titulo: "¡Excelente!", desc: "El bot es muy fluido.", estrellas: 5, usuario: "@Usuario"}
-            ],
-            equipo: [{nombre: "Jaime Dev", rol: "Creador"}],
-            anuncios: "📢 Trabajando en novedades...",
-            actualizaciones: "📦 v1.2 activa."
-        };
+        let configData = null;
 
         async function init() {
             try {
-                const response = await fetch('config.json');
-                if (response.ok) {
-                    const remoteData = await response.json();
-                    configData = remoteData; // Reemplaza locales por los de GitHub
-                }
-            } catch(e) { console.warn("Usando datos locales de emergencia."); }
-            
-            document.getElementById('srv-txt').innerHTML = `<i class="fas fa-server"></i> ${configData.servidores}`;
-            document.getElementById('usr-txt').innerHTML = `<i class="fas fa-users"></i> ${configData.usuarios}`;
+                const r = await fetch('config.json');
+                configData = await r.json();
+                document.getElementById('srv-txt').innerHTML = `<i class="fas fa-server"></i> ${configData.servidores}`;
+                document.getElementById('usr-txt').innerHTML = `<i class="fas fa-users"></i> ${configData.usuarios}`;
+            } catch(e) { console.log("Cargando..."); }
             showHome();
         }
 
@@ -97,43 +80,85 @@
                 <h2><i class="fas fa-gavel"></i> Términos</h2>
                 <ul><li>1. Uso legal</li><li>2. No spam</li><li>3. +13 años</li></ul>
                 <h2><i class="fas fa-shield-halved"></i> Privacidad</h2>
-                <ul><li>1. Solo IDs</li><li>2. No venta de datos</li></ul>`;
+                <ul><li>1. Solo IDs</li><li>2. No venta de datos</li><li>3. No lee DMs</li></ul>`;
         }
 
         function loadReviews() {
             let h = backBtn + '<h2>⭐ Reseñas</h2>';
-            configData.reseñas.forEach(r => {
-                let stars = '★'.repeat(r.estrellas) + '☆'.repeat(5 - r.estrellas);
-                h += `<div class="item-list">
-                        <strong>${r.titulo}</strong>
-                        <div class="stars-gold">${stars}</div>
-                        <p style="margin:5px 0;">${r.desc}</p>
-                        <span class="user-tag">${r.usuario}</span>
-                      </div>`;
-            });
+            h += `<button onclick="showReviewForm()" class="btn azul" style="width:100%; margin-bottom:15px;"><i class="fas fa-pen"></i> Escribir Reseña</button>`;
+            if(configData && configData.reseñas) {
+                configData.reseñas.forEach(r => {
+                    let s = '★'.repeat(r.estrellas) + '☆'.repeat(5-r.estrellas);
+                    h += `<div class="item-list"><strong>${r.titulo}</strong><div class="stars-gold">${s}</div><p>${r.desc}</p><span class="user-tag">${r.usuario}</span></div>`;
+                });
+            }
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
+        function showReviewForm() {
+            document.getElementById('dynamic-area').innerHTML = backBtn + `
+                <h2>✍️ Tu Opinión</h2>
+                <div class="item-list" style="border-left-color: #f1c40f;">
+                    <input type="text" id="rev-user" placeholder="Tu Usuario (Ej: @Jaime)">
+                    <input type="text" id="rev-title" placeholder="Título (Ej: ¡Me encanta!)">
+                    <select id="rev-stars">
+                        <option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option>
+                    </select>
+                    <textarea id="rev-desc" placeholder="Escribe aquí tu reseña..."></textarea>
+                    <button onclick="sendReview()" class="btn verde" style="width:100%;">Enviar a Discord</button>
+                    <p id="msg-status" style="text-align:center; font-size:11px; margin-top:10px;"></p>
+                </div>`;
+        }
+
+        async function sendReview() {
+            const user = document.getElementById('rev-user').value;
+            const title = document.getElementById('rev-title').value;
+            const stars = document.getElementById('rev-stars').value;
+            const desc = document.getElementById('rev-desc').value;
+            const status = document.getElementById('msg-status');
+            const webhookURL = "https://discord.com/api/webhooks/1451749521854824469/1HwtLOlrGKyWGXeZ3El2uOQGiKcLYdL329BV5JJmH--LWPMFt9wXBQNrEasm4U6aAUom"; // <--- PEGA TU WEBHOOK AQUÍ
+
+            if(!user || !title || !desc) { status.innerText = "❌ Rellena todo"; return; }
+            status.innerText = "⏳ Enviando...";
+
+            try {
+                await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: "⭐ Reseña Web: " + title,
+                            color: 5814783,
+                            fields: [
+                                { name: "Usuario", value: user, inline: true },
+                                { name: "Calificación", value: stars + " estrellas", inline: true },
+                                { name: "Mensaje", value: desc }
+                            ]
+                        }]
+                    })
+                });
+                status.innerText = "✅ ¡Enviada! Se publicará tras revisión.";
+            } catch(e) { status.innerText = "❌ Error de conexión."; }
+        }
+
         function loadFAQ() {
-            let h = backBtn + '<h2>📘 FAQ Oficial</h2>';
-            configData.faq.forEach(f => h += `<div class="item-list"><b>${f.q}</b><p>${f.a}</p></div>`);
+            let h = backBtn + '<h2>📘 FAQ</h2>';
+            if(configData) configData.faq.forEach(f => h += `<div class="item-list"><b>${f.q}</b><p>${f.a}</p></div>`);
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadTeam() {
             let h = backBtn + '<h2>Equipo</h2>';
-            configData.equipo.forEach(e => h += `<div class="item-list"><b>${e.nombre}</b><br>${e.rol}</div>`);
+            if(configData) configData.equipo.forEach(e => h += `<div class="item-list"><b>${e.nombre}</b><br>${e.rol}</div>`);
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadNews() {
-            document.getElementById('dynamic-area').innerHTML = backBtn + `
-                <h2>Novedades</h2>
-                <div class="item-list">${configData.anuncios}</div>
-                <div class="item-list">${configData.actualizaciones}</div>`;
+            let h = backBtn + '<h2>Novedades</h2>';
+            if(configData) h += `<div class="item-list">${configData.anuncios}</div><div class="item-list">${configData.actualizaciones}</div>`;
+            document.getElementById('dynamic-area').innerHTML = h;
         }
 
-        // Estrellas de fondo
         const sc = document.getElementById('star-container');
         for (let i = 0; i < 40; i++) {
             const s = document.createElement('div');
