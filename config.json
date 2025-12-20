@@ -1,8 +1,10 @@
 {
-  "estado": "online",
-  "servidores": "150",
-  "usuarios": "45,000",
-  "icono_url": "TU_URL_DE_IMAGEN_AQUI",
+  "estado": "Online",
+  "servidores": "125",
+  "usuarios": "12,450",
+  "icono_url": "https://tu-link-de-imagen-aqui.png",
+  "anuncios": "📢 ¡Estamos trabajando en el nuevo sistema de economía!",
+  "actualizaciones": "📦 v1.5: Añadido sistema de música y mejoras de velocidad.",
   "equipo": [
     {
       "nombre": "Jaime Dev",
