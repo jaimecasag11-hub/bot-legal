@@ -20,7 +20,6 @@
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .btn { padding: 10px; border-radius: 10px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; transition: 0.2s; }
-        .btn:active { transform: scale(0.95); }
         
         .azul { background: #5865f2; }
         .rojo { background: #e74c3c; }
@@ -29,8 +28,6 @@
         .item-list { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-left: 3px solid #5865F2; margin-bottom: 8px; font-size: 0.85em; }
         .back-btn { background: #5865F2; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 10px; margin-bottom: 10px; }
         
-        /* Estilos Reseñas */
-        .review-card { border-left-color: #00d4ff; }
         .stars-gold { color: #f1c40f; font-size: 0.9em; margin: 5px 0; }
         .user-tag { color: #5865F2; font-weight: bold; font-size: 0.8em; }
 
@@ -52,7 +49,7 @@
         </div>
 
         <div class="grid">
-            <button onclick="loadReviews()" class="btn azul"><i class="fas fa-star-half-stroke"></i> Reseñas</button>
+            <button onclick="loadReviews()" class="btn azul"><i class="fas fa-star"></i> Reseñas</button>
             <button onclick="loadFAQ()" class="btn rojo"><i class="fas fa-thumbtack"></i> FAQ Oficial</button>
             <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo</button>
             <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-star"></i> TOP GG</a>
@@ -64,58 +61,76 @@
 
     <script>
         const backBtn = '<button onclick="showHome()" class="back-btn">← Regresar</button>';
-        let configData = null;
+        
+        // DATOS DE RESPALDO (Si el JSON falla, esto salva la página)
+        let configData = {
+            servidores: "150+",
+            usuarios: "12,000+",
+            faq: [
+                {q: "¿Qué es J-Dev Bot?", a: "Un bot multifuncional de moderación y seguridad."},
+                {q: "¿Es gratis?", a: "Sí, todas las funciones actuales son gratuitas."}
+            ],
+            reseñas: [
+                {titulo: "¡Excelente!", desc: "El bot es muy fluido.", estrellas: 5, usuario: "@Usuario"}
+            ],
+            equipo: [{nombre: "Jaime Dev", rol: "Creador"}],
+            anuncios: "📢 Trabajando en novedades...",
+            actualizaciones: "📦 v1.2 activa."
+        };
 
         async function init() {
             try {
-                const r = await fetch('config.json');
-                configData = await r.json();
-                document.getElementById('srv-txt').innerHTML = `<i class="fas fa-server"></i> ${configData.servidores}`;
-                document.getElementById('usr-txt').innerHTML = `<i class="fas fa-users"></i> ${configData.usuarios}`;
-            } catch(e) { console.log("Cargando datos..."); }
+                const response = await fetch('config.json');
+                if (response.ok) {
+                    const remoteData = await response.json();
+                    configData = remoteData; // Reemplaza locales por los de GitHub
+                }
+            } catch(e) { console.warn("Usando datos locales de emergencia."); }
+            
+            document.getElementById('srv-txt').innerHTML = `<i class="fas fa-server"></i> ${configData.servidores}`;
+            document.getElementById('usr-txt').innerHTML = `<i class="fas fa-users"></i> ${configData.usuarios}`;
             showHome();
         }
 
         function showHome() {
             document.getElementById('dynamic-area').innerHTML = `
                 <h2><i class="fas fa-gavel"></i> Términos</h2>
-                <ul><li>1. Uso legal</li><li>2. No spam</li><li>3. +13 años</li><li>4. Aceptación al usar</li></ul>
+                <ul><li>1. Uso legal</li><li>2. No spam</li><li>3. +13 años</li></ul>
                 <h2><i class="fas fa-shield-halved"></i> Privacidad</h2>
-                <ul><li>1. Solo IDs</li><li>2. No venta de datos</li><li>3. No lee DMs</li><li>4. Cifrado seguro</li></ul>`;
+                <ul><li>1. Solo IDs</li><li>2. No venta de datos</li></ul>`;
         }
 
         function loadReviews() {
-            let h = backBtn + '<h2>⭐ Reseñas de Usuarios</h2>';
-            if(configData && configData.reseñas) {
-                configData.reseñas.forEach(r => {
-                    let s = '<div class="stars-gold">' + '★'.repeat(r.estrellas) + '☆'.repeat(5-r.estrellas) + '</div>';
-                    h += `<div class="item-list review-card">
-                            <strong>${r.titulo}</strong>
-                            ${s}
-                            <p style="margin:5px 0;">${r.desc}</p>
-                            <span class="user-tag">${r.usuario}</span>
-                          </div>`;
-                });
-            }
+            let h = backBtn + '<h2>⭐ Reseñas</h2>';
+            configData.reseñas.forEach(r => {
+                let stars = '★'.repeat(r.estrellas) + '☆'.repeat(5 - r.estrellas);
+                h += `<div class="item-list">
+                        <strong>${r.titulo}</strong>
+                        <div class="stars-gold">${stars}</div>
+                        <p style="margin:5px 0;">${r.desc}</p>
+                        <span class="user-tag">${r.usuario}</span>
+                      </div>`;
+            });
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadFAQ() {
             let h = backBtn + '<h2>📘 FAQ Oficial</h2>';
-            if(configData) configData.faq.forEach(f => h += `<div class="item-list"><b>${f.q}</b><p>${f.a}</p></div>`);
+            configData.faq.forEach(f => h += `<div class="item-list"><b>${f.q}</b><p>${f.a}</p></div>`);
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadTeam() {
             let h = backBtn + '<h2>Equipo</h2>';
-            if(configData) configData.equipo.forEach(e => h += `<div class="item-list"><b>${e.nombre}</b><br>${e.rol}</div>`);
+            configData.equipo.forEach(e => h += `<div class="item-list"><b>${e.nombre}</b><br>${e.rol}</div>`);
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
         function loadNews() {
-            let h = backBtn + '<h2>Novedades</h2>';
-            if(configData) h += `<div class="item-list">${configData.anuncios}</div><div class="item-list">${configData.actualizaciones}</div>`;
-            document.getElementById('dynamic-area').innerHTML = h;
+            document.getElementById('dynamic-area').innerHTML = backBtn + `
+                <h2>Novedades</h2>
+                <div class="item-list">${configData.anuncios}</div>
+                <div class="item-list">${configData.actualizaciones}</div>`;
         }
 
         // Estrellas de fondo
