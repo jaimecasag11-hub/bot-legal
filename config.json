@@ -1,51 +1,21 @@
 {
   "estado": "Online",
-  "servidores": "125",
-  "usuarios": "12,450",
-  "icono_url": "https://cdn.discordapp.com/attachments/1446670613472084009/1451735481862848688/image0.jpg?ex=69474186&is=6945f006&hm=ff0b4889a996223d579a6092d7d7ef185ee365ee6da6986b88362d7a3b5957b5&",
-  "anuncios": "📢 ¡Estamos trabajando en el nuevo sistema de economía!",
-  "actualizaciones": "📦 v1.5: Añadido sistema de música y mejoras de velocidad.",
+  "servidores": "9",
+  "usuarios": "261",
+  "icono_url": "https://tu-link-de-imagen-aqui.png",
+  "anuncios": "📢 Trabajando en nuevos sistemas interactivos y de economía.",
+  "actualizaciones": "📦 v1.2: Optimización de respuesta global y nuevos Badges.",
   "equipo": [
     {
       "nombre": "Jaime Dev",
       "rol": "Creador Oficial",
-      "desc": "Desarrollador principal y dueño de Beta J-Dev Studios."
+      "desc": "Developer principal de Beta J-Dev Studios."
     }
   ],
-  "anuncios": "📢 ¡Estamos en mantenimiento! Nueva versión pronto.",
-  "actualizaciones": "📦 v1.2: Se ha mejorado la interfaz de usuario.",
-  "comandos": [
-    {"name": "/help", "desc": "Muestra la lista de comandos disponible."},
-    {"name": "/ban", "desc": "Sanciona a un usuario del servidor."},
-    {"name": "/rank", "desc": "Mira tu nivel de experiencia."},
-    {"name": "/warn", "desc": "Advierte a un usuario."},
-    {"name": "/mute", "desc": "Mutea a un usuario."},
-    {"name": "/bot-stats", "desc": "Mira Stats del bot."}
-    "faq": [
-    { 
-      "q": "❓ ¿Qué es J-Dev Bot?", 
-      "a": "J-Dev Bot es un bot multifuncional enfocado en moderación, automatización, seguridad, sistemas interactivos (embeds, sugerencias, verificaciones, badges) y utilidades para servidores de Discord." 
-    },
-    { 
-      "q": "❓ ¿El bot es gratuito?", 
-      "a": "✅ Sí. Actualmente todas las funciones son gratis. En el futuro podría existir una versión premium, pero no es obligatoria." 
-    },
-    { 
-      "q": "❓ ¿Cómo agrego el bot a mi servidor?", 
-      "a": "1. Usa el link oficial de invitación.<br>2. Dale permisos de Administrador (recomendado).<br>3. Configura los sistemas con los comandos /config-*" 
-    },
-    { 
-      "q": "❓ ¿Por qué un comando dice 'La aplicación no responde'?", 
-      "a": "Esto puede pasar si el bot se está reiniciando, Discord tiene un fallo temporal o el comando no se sincronizó. 🔁 <b>Solución:</b> Espera unos segundos o repórtalo en el soporte." 
-    },
-    { 
-      "q": "❓ ¿Los comandos funcionan en todos los servidores?", 
-      "a": "Sí, pero algunos requieren configuración previa (ej: /rol-staff, /config-welcome, /config-sugs, /config-badges)." 
-    },
-    { 
-      "q": "❓ ¿Dónde veo actualizaciones y pido ayuda?", 
-      "a": "Puedes ver novedades en los canales de anuncios y pedir ayuda directa abriendo un ticket en nuestro servidor oficial." 
-    }
-]
+  "faq": [
+    { "q": "¿Qué es J-Dev Bot?", "a": "Bot multifuncional de moderación, seguridad y utilidades." },
+    { "q": "¿Es gratuito?", "a": "✅ Sí, todas las funciones actuales son gratis." },
+    { "q": "¿Cómo lo configuro?", "a": "Usa los comandos slash (/) para ver las opciones disponibles." },
+    { "q": "¿Dónde pido ayuda?", "a": "Abre un ticket en nuestro servidor de Soporte oficial." }
   ]
 }
