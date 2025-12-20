@@ -2,7 +2,7 @@
   "estado": "Online",
   "servidores": "125",
   "usuarios": "12,450",
-  "icono_url": "https://tu-link-de-imagen-aqui.png",
+  "icono_url": "https://cdn.discordapp.com/attachments/1446670613472084009/1451735481862848688/image0.jpg?ex=69474186&is=6945f006&hm=ff0b4889a996223d579a6092d7d7ef185ee365ee6da6986b88362d7a3b5957b5&",
   "anuncios": "📢 ¡Estamos trabajando en el nuevo sistema de economía!",
   "actualizaciones": "📦 v1.5: Añadido sistema de música y mejoras de velocidad.",
   "equipo": [
@@ -19,7 +19,7 @@
     {"name": "/ban", "desc": "Sanciona a un usuario del servidor."},
     {"name": "/rank", "desc": "Mira tu nivel de experiencia."},
     {"name": "/warn", "desc": "Advierte a un usuario."},
-    {"name": "/mute", "desc": "Mira tu nivel de experiencia."},
+    {"name": "/mute", "desc": "Mutea a un usuario."},
     {"name": "/bot-stats", "desc": "Mira Stats del bot."}
   ]
 }
