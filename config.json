@@ -1,21 +1,56 @@
 {
   "estado": "Online",
-  "servidores": "9",
-  "usuarios": "261",
-  "icono_url": "https://tu-link-de-imagen-aqui.png",
-  "anuncios": "📢 Trabajando en nuevos sistemas interactivos y de economía.",
-  "actualizaciones": "📦 v1.2: Optimización de respuesta global y nuevos Badges.",
+  "servidores": "150+",
+  "usuarios": "12,000+",
+  "icono_url": "https://images-ext-1.discordapp.net/external/v3C6V8fE-9w9-Y-xP-S-q-T-z-Q-Y-x-P-S-q-T-z-Q/https/i.imgur.com/tu_imagen.png",
+  "anuncios": "📢 Trabajando en el nuevo sistema de economía y badges interactivas.",
+  "actualizaciones": "📦 v1.2: Optimización de velocidad en Slash Commands y corrección de bugs en el sistema de bienvenida.",
   "equipo": [
     {
       "nombre": "Jaime Dev",
-      "rol": "Creador Oficial",
-      "desc": "Developer principal de Beta J-Dev Studios."
+      "rol": "Creador Oficial & Developer",
+      "desc": "Dueño y desarrollador principal de Beta J-Dev Studios."
+    },
+    {
+      "nombre": "Staff Team",
+      "rol": "Soporte Técnico",
+      "desc": "Encargados de ayudar a la comunidad y reportar errores."
     }
   ],
   "faq": [
-    { "q": "¿Qué es J-Dev Bot?", "a": "Bot multifuncional de moderación, seguridad y utilidades." },
-    { "q": "¿Es gratuito?", "a": "✅ Sí, todas las funciones actuales son gratis." },
-    { "q": "¿Cómo lo configuro?", "a": "Usa los comandos slash (/) para ver las opciones disponibles." },
-    { "q": "¿Dónde pido ayuda?", "a": "Abre un ticket en nuestro servidor de Soporte oficial." }
+    { 
+      "q": "❓ ¿Qué es J-Dev Bot?", 
+      "a": "J-Dev Bot es un bot multifuncional enfocado en moderación, automatización, seguridad, sistemas interactivos (embeds, sugerencias, verificaciones, badges) y utilidades." 
+    },
+    { 
+      "q": "❓ ¿El bot es gratuito?", 
+      "a": "✅ Sí. Actualmente todas las funciones son gratis. En el futuro podría existir una versión premium, pero no es obligatoria." 
+    },
+    { 
+      "q": "❓ ¿Cómo agrego el bot a mi servidor?", 
+      "a": "Usa el link oficial de invitación, dale permisos de Administrador (recomendado) y configura los sistemas con los comandos /config-*" 
+    },
+    { 
+      "q": "❓ ¿Por qué un comando dice 'La aplicación no responde'?", 
+      "a": "Puede pasar por reinicios, fallos de Discord o falta de sincronización. 🔁 Solución: Espera unos segundos o repórtalo en un ticket." 
+    },
+    { 
+      "q": "❓ ¿Los comandos funcionan en todos los servidores?", 
+      "a": "Sí, pero algunos requieren configuración previa como /rol-staff, /config-welcome o /config-sugs." 
+    }
+  ],
+  "reseñas": [
+    {
+      "titulo": "¡Excelente Bot!",
+      "desc": "La moderación es muy fluida y el sistema de badges le da un toque único a mi servidor.",
+      "estrellas": 5,
+      "usuario": "@UsuarioEjemplo"
+    },
+    {
+      "titulo": "Súper recomendado",
+      "desc": "Es muy fácil de configurar comparado con otros bots. El soporte es muy atento.",
+      "estrellas": 5,
+      "usuario": "@BetaTester_01"
+    }
   ]
 }
