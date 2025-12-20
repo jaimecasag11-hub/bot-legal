@@ -32,9 +32,8 @@
         .stars-gold { color: #f1c40f; font-size: 0.9em; margin: 5px 0; }
         .user-tag { color: #5865F2; font-weight: bold; font-size: 0.8em; }
 
+        input, textarea, select { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; box-sizing: border-box; font-size: 13px; }
         h2 { color: #5865F2; font-size: 1.1em; margin-top: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        input, textarea, select { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; box-sizing: border-box; }
-        ::placeholder { color: #aaa; }
     </style>
 </head>
 <body>
@@ -63,6 +62,7 @@
 
     <script>
         const backBtn = '<button onclick="showHome()" class="back-btn">← Regresar</button>';
+        const webhookURL = "https://discord.com/api/webhooks/1451749521854824469/1HwtLOlrGKyWGXeZ3El2uOQGiKcLYdL329BV5JJmH--LWPMFt9wXBQNrEasm4U6aAUom";
         let configData = null;
 
         async function init() {
@@ -85,7 +85,7 @@
 
         function loadReviews() {
             let h = backBtn + '<h2>⭐ Reseñas</h2>';
-            h += `<button onclick="showReviewForm()" class="btn azul" style="width:100%; margin-bottom:15px;"><i class="fas fa-pen"></i> Escribir Reseña</button>`;
+            h += `<button onclick="showReviewForm()" class="btn azul" style="width:100%; margin-bottom:15px;"><i class="fas fa-pen"></i> Escribir mi Reseña</button>`;
             if(configData && configData.reseñas) {
                 configData.reseñas.forEach(r => {
                     let s = '★'.repeat(r.estrellas) + '☆'.repeat(5-r.estrellas);
@@ -100,12 +100,12 @@
                 <h2>✍️ Tu Opinión</h2>
                 <div class="item-list" style="border-left-color: #f1c40f;">
                     <input type="text" id="rev-user" placeholder="Tu Usuario (Ej: @Jaime)">
-                    <input type="text" id="rev-title" placeholder="Título (Ej: ¡Me encanta!)">
+                    <input type="text" id="rev-title" placeholder="Título (Ej: Muy buen bot)">
                     <select id="rev-stars">
                         <option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option>
                     </select>
                     <textarea id="rev-desc" placeholder="Escribe aquí tu reseña..."></textarea>
-                    <button onclick="sendReview()" class="btn verde" style="width:100%;">Enviar a Discord</button>
+                    <button id="send-btn" onclick="sendReview()" class="btn verde" style="width:100%;">Enviar Reseña</button>
                     <p id="msg-status" style="text-align:center; font-size:11px; margin-top:10px;"></p>
                 </div>`;
         }
@@ -116,29 +116,40 @@
             const stars = document.getElementById('rev-stars').value;
             const desc = document.getElementById('rev-desc').value;
             const status = document.getElementById('msg-status');
-            const webhookURL = "https://discord.com/api/webhooks/1451749521854824469/1HwtLOlrGKyWGXeZ3El2uOQGiKcLYdL329BV5JJmH--LWPMFt9wXBQNrEasm4U6aAUom"; // <--- PEGA TU WEBHOOK AQUÍ
+            const btn = document.getElementById('send-btn');
 
-            if(!user || !title || !desc) { status.innerText = "❌ Rellena todo"; return; }
+            if(!user || !title || !desc) { status.innerText = "❌ Rellena todos los campos"; status.style.color = "#ff4757"; return; }
+            
             status.innerText = "⏳ Enviando...";
+            btn.disabled = true;
 
             try {
-                await fetch(webhookURL, {
+                const res = await fetch(webhookURL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         embeds: [{
-                            title: "⭐ Reseña Web: " + title,
+                            title: "⭐ Nueva Reseña de Usuario",
                             color: 5814783,
                             fields: [
                                 { name: "Usuario", value: user, inline: true },
-                                { name: "Calificación", value: stars + " estrellas", inline: true },
-                                { name: "Mensaje", value: desc }
-                            ]
+                                { name: "Estrellas", value: stars + " / 5", inline: true },
+                                { name: "Título", value: title },
+                                { name: "Comentario", value: desc }
+                            ],
+                            footer: { text: "Enviado desde Beta J-Dev Web" }
                         }]
                     })
                 });
-                status.innerText = "✅ ¡Enviada! Se publicará tras revisión.";
-            } catch(e) { status.innerText = "❌ Error de conexión."; }
+                if(res.ok) {
+                    status.innerText = "✅ ¡Enviada! Gracias por tu feedback.";
+                    status.style.color = "#2ecc71";
+                } else { throw new Error(); }
+            } catch(e) {
+                status.innerText = "❌ Error al enviar. Webhook inválido.";
+                status.style.color = "#ff4757";
+                btn.disabled = false;
+            }
         }
 
         function loadFAQ() {
