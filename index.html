@@ -3,66 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beta J-Dev Studios</title>
+    <title>Beta J-Dev Studios - Documentación Oficial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { margin: 0; padding: 0; background: #00050a; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.8; animation: move linear infinite, twinkle 1.5s infinite ease-in-out; }
         @keyframes move { from { transform: translateY(-10vh); } to { transform: translateY(110vh); } }
         @keyframes twinkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px 2px white; } }
-        .container { max-width: 700px; margin: 5vh auto; height: 85vh; display: flex; flex-direction: column; }
-        .content-box { flex-grow: 1; padding: 30px; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(15px); border-radius: 20px; border: 1px solid rgba(88, 101, 242, 0.4); overflow-y: auto; margin-bottom: 20px; }
-        h1 { color: #5865F2; text-align: center; margin-top: 0; }
-        h2 { color: #5865F2; border-bottom: 1px solid #333; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { padding: 12px; border-radius: 8px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; font-size: 14px; }
-        .azul { background: #007bff; } .verde { background: #2ecc71; grid-column: span 2; } .rojo { background: #e74c3c; }
-        .team-item { background: rgba(88, 101, 242, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #5865F2; margin-bottom: 10px; }
+        
+        .container { max-width: 800px; margin: 3vh auto; height: 90vh; display: flex; flex-direction: column; }
+        .content-box { flex-grow: 1; padding: 35px; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); border-radius: 25px; border: 1px solid rgba(88, 101, 242, 0.5); overflow-y: auto; margin-bottom: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        
+        h1 { color: #5865F2; text-align: center; font-size: 2.2em; text-shadow: 0 0 15px rgba(88, 101, 242, 0.6); }
+        h2 { color: #5865F2; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 25px; display: flex; align-items: center; gap: 10px; }
+        .point-list { padding-left: 20px; }
+        .point-list li { margin-bottom: 12px; color: #dcddde; line-height: 1.4; }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn { padding: 14px; border-radius: 12px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        
+        .azul { background: #007bff; }
+        .verde { background: #2ecc71; grid-column: span 2; font-size: 18px; }
+        .rojo { background: #e74c3c; }
+        .team-item { background: rgba(88, 101, 242, 0.15); padding: 20px; border-radius: 15px; border-left: 5px solid #5865F2; margin-bottom: 15px; }
     </style>
 </head>
 <body>
     <div class="stars" id="star-container"></div>
     <div class="container">
         <div class="content-box" id="main-content">
-            <h1>Beta J-Dev Studios</h1>
-            <h2>⚖️ Términos y Privacidad</h2>
-            <p>Bienvenido. Usa los botones de abajo para navegar por la información oficial.</p>
+            <h1><i class="fas fa-rocket"></i> Beta J-Dev Studios</h1>
+            
+            <h2><i class="fas fa-gavel"></i> Términos de Uso</h2>
+            <ul class="point-list">
+                <li><b>1. Aceptación:</b> Al usar el bot, aceptas estos términos y las directrices de Discord.</li>
+                <li><b>2. Uso Prohibido:</b> No se permite el uso del bot para spam, flood o ataques masivos.</li>
+                <li><b>3. Integridad:</b> Queda prohibido intentar extraer el código fuente o explotar bugs.</li>
+                <li><b>4. Responsabilidad:</b> No nos hacemos responsables por la mala configuración del bot en tu servidor.</li>
+                <li><b>5. Contenido:</b> El usuario es responsable del contenido generado mediante comandos de texto.</li>
+                <li><b>6. Suspensión:</b> Nos reservamos el derecho de banear servidores que incumplan las normas.</li>
+                <li><b>7. Modificaciones:</b> Los términos pueden cambiar; el uso continuo implica aceptación.</li>
+                <li><b>8. Gratuidad:</b> El bot es gratuito, pero algunas funciones premium pueden requerir donación.</li>
+            </ul>
+
+            <h2><i class="fas fa-shield-halved"></i> Política de Privacidad</h2>
+            <ul class="point-list">
+                <li><b>1. Datos Recopilados:</b> Almacenamos IDs de usuario, de servidor y de canales de texto.</li>
+                <li><b>2. Finalidad:</b> Los datos solo sirven para sistemas de economía, niveles y logs.</li>
+                <li><b>3. Transparencia:</b> No vendemos ni compartimos información con empresas externas.</li>
+                <li><b>4. Seguridad:</b> Los datos se guardan en bases de datos cifradas y protegidas.</li>
+                <li><b>5. Mensajería:</b> El bot no lee mensajes privados (DMs) a menos que sean comandos.</li>
+                <li><b>6. Retención:</b> Los datos se borran si el bot es expulsado del servidor tras 30 días.</li>
+                <li><b>7. Derechos:</b> Puedes solicitar una copia de tus datos a través de nuestro soporte.</li>
+                <li><b>8. Eliminación:</b> Usa los comandos de "borrado de perfil" para limpiar tu información.</li>
+            </ul>
         </div>
+
         <div class="grid">
-            <button onclick="loadTeam()" class="btn azul">Equipo de Soporte</button>
-            <a href="https://discord.gg/BVTAsgUm8f" target="_blank" class="btn azul">Servidor de Soporte</a>
-            <button onclick="loadNews()" class="btn rojo">Anuncios / Updates</button>
-            <a href="https://top.gg/bot/1434700657733927054" target="_blank" class="btn rojo">TOP GG</a>
-            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot+applications.commands" target="_blank" class="btn verde">➕ Invitar Bot</a>
+            <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo Soporte</button>
+            <a href="https://discord.gg/BVTAsgUm8f" target="_blank" class="btn azul"><i class="fab fa-discord"></i> Server Soporte</a>
+            <button onclick="loadNews()" class="btn rojo"><i class="fas fa-bullhorn"></i> Anuncios / Log</button>
+            <a href="https://top.gg/bot/1434700657733927054" target="_blank" class="btn rojo"><i class="fas fa-chart-line"></i> TOP GG</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot+applications.commands" target="_blank" class="btn verde"><i class="fas fa-plus-circle"></i> Invitar Bot al Servidor</a>
         </div>
     </div>
 
     <script>
         const content = document.getElementById('main-content');
         
-        // Función para leer el archivo que tú editas en GitHub
         async function getData() {
-            const response = await fetch('config.json');
-            return await response.json();
+            try {
+                const response = await fetch('config.json');
+                return await response.json();
+            } catch (e) {
+                return { equipo: [], anuncios: "Error cargando datos", actualizaciones: "Error" };
+            }
         }
 
         async function loadTeam() {
             const data = await getData();
-            let html = '<h1>👥 Equipo de Soporte</h1>';
+            let html = '<h1><i class="fas fa-users-gear"></i> Equipo de Soporte</h1>';
             data.equipo.forEach(m => {
-                html += `<div class="team-item"><strong>🔵 ${m.nombre}</strong> — ${m.rol}<p>${m.desc}</p></div>`;
+                html += `<div class="team-item"><strong><i class="fab fa-discord"></i> ${m.nombre}</strong> — ${m.rol}<p>${m.desc}</p></div>`;
             });
-            html += `<button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; padding:5px;">← Volver</button>`;
+            html += `<button onclick="location.reload()" class="btn azul" style="width:120px; padding:5px;"><i class="fas fa-arrow-left"></i> Volver</button>`;
             content.innerHTML = html;
         }
 
         async function loadNews() {
             const data = await getData();
             content.innerHTML = `
-                <h1>📢 Novedades</h1>
-                <h2>Anuncios</h2><p style="background:#111; padding:10px;">${data.anuncios}</p>
-                <h2>Actualizaciones</h2><p style="background:#111; padding:10px;">${data.actualizaciones}</p>
-                <button onclick="location.reload()" style="background:none; border:1px solid #5865F2; color:#5865F2; padding:5px;">← Volver</button>`;
+                <h1><i class="fas fa-bullhorn"></i> Novedades y Logs</h1>
+                <h2><i class="fas fa-satellite-dish"></i> Anuncios</h2><p style="background:#111; padding:15px; border-radius:10px; border:1px solid #444;">${data.anuncios}</p>
+                <h2><i class="fas fa-box-open"></i> Actualizaciones</h2><p style="background:#111; padding:15px; border-radius:10px; border:1px solid #444;">${data.actualizaciones}</p>
+                <button onclick="location.reload()" class="btn rojo" style="width:120px; padding:5px;"><i class="fas fa-arrow-left"></i> Volver</button>`;
         }
 
         // Estrellas
