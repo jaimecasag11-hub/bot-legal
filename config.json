@@ -1,4 +1,8 @@
 {
+  "estado": "online",
+  "servidores": "150",
+  "usuarios": "45,000",
+  "icono_url": "TU_URL_DE_IMAGEN_AQUI",
   "equipo": [
     {
       "nombre": "Jaime Dev",
@@ -7,5 +11,13 @@
     }
   ],
   "anuncios": "📢 ¡Estamos en mantenimiento! Nueva versión pronto.",
-  "actualizaciones": "📦 v1.2: Se ha mejorado la interfaz de usuario."
+  "actualizaciones": "📦 v1.2: Se ha mejorado la interfaz de usuario.",
+  "comandos": [
+    {"name": "/help", "desc": "Muestra la lista de comandos disponible."},
+    {"name": "/ban", "desc": "Sanciona a un usuario del servidor."},
+    {"name": "/rank", "desc": "Mira tu nivel de experiencia."},
+    {"name": "/warn", "desc": "Advierte a un usuario."},
+    {"name": "/mute", "desc": "Mira tu nivel de experiencia."},
+    {"name": "/bot-stats", "desc": "Mira Stats del bot."}
+  ]
 }
