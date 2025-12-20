@@ -12,38 +12,38 @@
         @keyframes move { from { transform: translateY(-10vh); } to { transform: translateY(110vh); } }
         @keyframes twinkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px 2px white; } }
         
-        .container { max-width: 800px; margin: 2vh auto; height: 95vh; display: flex; flex-direction: column; }
-        .content-box { flex-grow: 1; padding: 30px; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); border-radius: 25px; border: 1px solid rgba(88, 101, 242, 0.4); overflow-y: auto; margin-bottom: 15px; position: relative; }
+        .container { max-width: 850px; margin: 2vh auto; height: 95vh; display: flex; flex-direction: column; }
+        .content-box { flex-grow: 1; padding: 30px; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); border-radius: 25px; border: 1px solid rgba(88, 101, 242, 0.4); overflow-y: auto; margin-bottom: 15px; }
         
-        .stats-bar { display: flex; justify-content: space-around; background: rgba(88, 101, 242, 0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(88, 101, 242, 0.3); align-items: center; }
+        .stats-bar { display: flex; justify-content: space-around; background: rgba(88, 101, 242, 0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(88, 101, 242, 0.3); align-items: center; font-size: 0.9em; }
         .status-dot { height: 10px; width: 10px; background-color: #2ecc71; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #2ecc71; margin-right: 8px; }
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { padding: 14px; border-radius: 12px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; font-size: 14px; }
+        .btn { padding: 12px; border-radius: 12px; color: white; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; font-size: 13px; }
         .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
         
-        .azul { background: #007bff; }
-        .verde { background: #2ecc71; grid-column: span 2; }
+        .azul { background: #5865f2; }
         .rojo { background: #e74c3c; }
+        .verde { background: #2ecc71; grid-column: span 2; font-size: 16px; margin-top: 5px; }
 
         .item-list { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border-left: 4px solid #5865F2; margin-bottom: 10px; }
         .back-btn { background: #5865F2; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
         
-        h2 { color: #5865F2; display: flex; align-items: center; gap: 10px; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; color: #ccc; }
+        h2 { color: #5865F2; display: flex; align-items: center; gap: 10px; margin-top: 25px; }
+        p, li { color: #ccc; line-height: 1.5; }
+        strong { color: #fff; }
     </style>
 </head>
 <body>
     <div class="stars" id="star-container"></div>
     <div class="container">
         <div class="content-box" id="main-content">
-            <h1><i class="fas fa-rocket"></i> Beta J-Dev Studios</h1>
+            <h1 style="text-align: center; color: #5865F2;"><i class="fas fa-rocket"></i> Beta J-Dev Studios</h1>
             
             <div class="stats-bar">
-                <div class="stat-item"><span class="status-dot"></span> <span id="status-text">Cargando...</span></div>
-                <div class="stat-item"><i class="fas fa-server"></i> <span id="servidores-text">0</span> Servers</div>
-                <div class="stat-item"><i class="fas fa-users"></i> <span id="usuarios-text">0</span> Users</div>
+                <div><span class="status-dot"></span> <span id="status-text">Cargando...</span></div>
+                <div><i class="fas fa-server"></i> <span id="servidores-text">0</span> Servers</div>
+                <div><i class="fas fa-users"></i> <span id="usuarios-text">0</span> Users</div>
             </div>
 
             <div id="dynamic-area">
@@ -52,10 +52,12 @@
 
         <div class="grid">
             <button onclick="loadCommands()" class="btn azul"><i class="fas fa-terminal"></i> Comandos</button>
+            <button onclick="loadFAQ()" class="btn rojo"><i class="fas fa-thumbtack"></i> FAQ Oficial</button>
             <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo</button>
-            <button onclick="loadNews()" class="btn rojo"><i class="fas fa-bullhorn"></i> Novedades</button>
-            <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-chart-line"></i> TOP GG</a>
-            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot" class="btn verde" target="_blank"><i class="fas fa-plus-circle"></i> Invitar Bot</a>
+            <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-star"></i> TOP GG</a>
+            <button onclick="loadNews()" class="btn azul"><i class="fas fa-bullhorn"></i> Novedades</button>
+            <a href="https://discord.gg/BVTAsgUm8f" class="btn rojo" target="_blank"><i class="fab fa-discord"></i> Soporte</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot" class="btn verde" target="_blank"><i class="fas fa-plus-circle"></i> Invitar Bot al Servidor</a>
         </div>
     </div>
 
@@ -63,54 +65,56 @@
         const tosHtml = `
             <h2><i class="fas fa-gavel"></i> Términos de Uso</h2>
             <ul>
-                <li>1. <b>Uso Legal:</b> No usar el bot para actividades que violen las leyes locales o de Discord.</li>
-                <li>2. <b>No Abuso:</b> Prohibido el spam de comandos o intentos de flood al bot.</li>
-                <li>3. <b>Modificaciones:</b> Nos reservamos el derecho de modificar funciones sin previo aviso.</li>
-                <li>4. <b>Responsabilidad:</b> No nos hacemos responsables por daños causados por mal uso.</li>
-                <li>5. <b>Baneos:</b> El equipo puede prohibir el uso del bot a usuarios tóxicos.</li>
-                <li>6. <b>Soporte:</b> El soporte se ofrece solo en el servidor oficial.</li>
-                <li>7. <b>Contenido:</b> No generar contenido ofensivo usando comandos del bot.</li>
-                <li>8. <b>Edad:</b> Debes cumplir la edad mínima de Discord (13+) para usarlo.</li>
-                <li>9. <b>Propiedad:</b> El código y marca pertenecen a Beta J-Dev Studios.</li>
-                <li>10. <b>Aceptación:</b> Al invitar al bot, aceptas todos estos puntos automáticamente.</li>
+                <li>1. <b>Uso Legal:</b> Respetar las leyes y términos de Discord.</li>
+                <li>2. <b>No Abuso:</b> Prohibido el spam de comandos.</li>
+                <li>3. <b>Modificaciones:</b> Las funciones pueden variar para mejorar el bot.</li>
+                <li>4. <b>Responsabilidad:</b> No nos hacemos responsables por mal uso del bot.</li>
+                <li>5. <b>Soporte:</b> Solo brindamos ayuda en nuestro servidor oficial.</li>
+                <li>6. <b>Edad:</b> Debes tener 13 años o más.</li>
+                <li>7. <b>Integridad:</b> No intentar hackear o explotar fallos del bot.</li>
+                <li>8. <b>Derecho de Uso:</b> Podemos restringir el acceso si incumples las normas.</li>
+                <li>9. <b>Marca:</b> Beta J-Dev Studios es propiedad privada.</li>
+                <li>10. <b>Aceptación:</b> El uso del bot implica aceptar estos términos.</li>
             </ul>
             <h2><i class="fas fa-shield-halved"></i> Política de Privacidad</h2>
             <ul>
-                <li>1. <b>Datos:</b> Solo guardamos IDs de usuario y servidor.</li>
-                <li>2. <b>Mensajes:</b> El bot no lee mensajes privados ni chats ajenos a comandos.</li>
-                <li>3. <b>Compartir:</b> Tus datos nunca serán vendidos ni compartidos con terceros.</li>
-                <li>4. <b>Cookies:</b> Esta web no utiliza cookies de rastreo personal.</li>
-                <li>5. <b>Seguridad:</b> Usamos encriptación básica para proteger tus configuraciones.</li>
-                <li>6. <b>Logs:</b> Guardamos logs de errores para mejorar el servicio.</li>
-                <li>7. <b>Ubicación:</b> No rastreamos tu IP ni ubicación geográfica.</li>
-                <li>8. <b>Transparencia:</b> Puedes preguntar qué datos tenemos de ti en el soporte.</li>
-                <li>9. <b>Borrado:</b> Si expulsas al bot, tus datos se borran tras un periodo de gracia.</li>
-                <li>10. <b>Contacto:</b> Para dudas legales, contactar a Jaime Dev.</li>
+                <li>1. <b>Datos:</b> Solo guardamos IDs de usuario y servidor para funciones básicas.</li>
+                <li>2. <b>Seguridad:</b> Información protegida en base de datos privada.</li>
+                <li>3. <b>Transparencia:</b> No vendemos ni compartimos tus datos personales.</li>
+                <li>4. <b>Eliminación:</b> Puedes solicitar borrar tus datos en el soporte.</li>
+                <li>5. <b>Logs:</b> Solo guardamos registros de errores para mantenimiento.</li>
+                <li>6. <b>Mensajes:</b> El bot no lee mensajes privados (DMs).</li>
+                <li>7. <b>Cookies:</b> Esta web no usa cookies de rastreo.</li>
+                <li>8. <b>Visibilidad:</b> Tu perfil es privado dentro de nuestra base de datos.</li>
+                <li>9. <b>Actualización:</b> Podemos actualizar esta política en cualquier momento.</li>
+                <li>10. <b>Contacto:</b> Jaime Dev es el responsable de la protección de datos.</li>
             </ul>`;
 
+        const backBtn = '<button onclick="showHome()" class="back-btn"><i class="fas fa-arrow-left"></i> Regresar</button>';
+
         async function fetchConfig() {
-            const r = await fetch('config.json');
-            return await r.json();
+            try {
+                const r = await fetch('config.json');
+                return await r.json();
+            } catch(e) { console.log("Error cargando config.json"); }
         }
 
-        function showHome() {
-            document.getElementById('dynamic-area').innerHTML = tosHtml;
-        }
+        function showHome() { document.getElementById('dynamic-area').innerHTML = tosHtml; }
 
         async function init() {
             const data = await fetchConfig();
-            document.getElementById('status-text').innerText = data.estado;
-            document.getElementById('servidores-text').innerText = data.servidores;
-            document.getElementById('usuarios-text').innerText = data.usuarios;
-            if(data.icono_url) {
-                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                link.rel = 'shortcut icon'; link.href = data.icono_url;
-                document.getElementsByTagName('head')[0].appendChild(link);
+            if(data) {
+                document.getElementById('status-text').innerText = data.estado;
+                document.getElementById('servidores-text').innerText = data.servidores;
+                document.getElementById('usuarios-text').innerText = data.usuarios;
+                if(data.icono_url) {
+                    let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                    link.rel = 'shortcut icon'; link.href = data.icono_url;
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                }
             }
             showHome();
         }
-
-        const backBtn = '<button onclick="showHome()" class="back-btn"><i class="fas fa-arrow-left"></i> Regresar</button>';
 
         async function loadCommands() {
             const data = await fetchConfig();
@@ -126,6 +130,13 @@
             document.getElementById('dynamic-area').innerHTML = h;
         }
 
+        async function loadFAQ() {
+            const data = await fetchConfig();
+            let h = backBtn + '<h2><i class="fas fa-book"></i> 『📘』FAQ – Preguntas Frecuentes</h2>';
+            data.faq.forEach(f => h += `<div class="item-list"><strong>${f.q}</strong><p style="margin-top:8px; color:#bdc3c7;">${f.a}</p></div>`);
+            document.getElementById('dynamic-area').innerHTML = h;
+        }
+
         async function loadNews() {
             const data = await fetchConfig();
             document.getElementById('dynamic-area').innerHTML = backBtn + `
@@ -133,27 +144,20 @@
                 <h2><i class="fas fa-box-open"></i> Updates</h2><p class="item-list">${data.actualizaciones}</p>`;
         }
 
-        // Estrellas
+        // Generador de estrellas
         const sc = document.getElementById('star-container');
         for (let i = 0; i < 150; i++) {
             const s = document.createElement('div');
             s.className = 'star';
-            s.style.width = s.style.height = Math.random() * 4 + 'px';
+            const size = Math.random() * 4 + 'px';
+            s.style.width = size; s.style.height = size;
             s.style.left = Math.random() * 100 + 'vw';
             s.style.top = Math.random() * 100 + 'vh';
             s.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            s.style.animationDelay = Math.random() * 5 + 's';
             sc.appendChild(s);
         }
         init();
     </script>
 </body>
 </html>
-<div class="grid">
-    <button onclick="loadCommands()" class="btn azul"><i class="fas fa-terminal"></i> Comandos</button>
-    <button onclick="loadFAQ()" class="btn rojo"><i class="fas fa-thumbtack"></i> FAQ Oficial</button>
-    <button onclick="loadTeam()" class="btn azul"><i class="fas fa-users-gear"></i> Equipo</button>
-    <a href="https://top.gg/bot/1434700657733927054" class="btn rojo" target="_blank"><i class="fas fa-star"></i> TOP GG</a>
-    <button onclick="loadNews()" class="btn azul"><i class="fas fa-bullhorn"></i> Novedades</button>
-    <a href="https://discord.gg/BVTAsgUm8f" class="btn rojo" target="_blank"><i class="fab fa-discord"></i> Soporte</a>
-    <a href="https://discord.com/oauth2/authorize?client_id=1434700657733927054&permissions=8&scope=bot" class="btn verde" target="_blank"><i class="fas fa-plus-circle"></i> Invitar Bot al Servidor</a>
-</div>
